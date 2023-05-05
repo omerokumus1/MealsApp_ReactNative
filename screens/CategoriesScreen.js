@@ -13,6 +13,7 @@ function CategoriesScreen() {
       data={CATEGORIES}
       keyExtractor={(item) => item.id}
       renderItem={renderItem}
+      numColumns={2}
     />
   );
 }
