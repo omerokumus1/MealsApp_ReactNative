@@ -6,7 +6,9 @@ import { CATEGORIES } from '../data/dummy-data';
 function CategoriesScreen({ navigation }) {
   function renderItem(itemData) {
     function pressHandler() {
-      navigation.navigate('MealsOverviewScreen');
+      navigation.navigate('MealsOverviewScreen', {
+        categoryId: itemData.item.id,
+      });
     }
     return (
       <CategoryGridTile
