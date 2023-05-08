@@ -16,19 +16,20 @@ function MealsOverviewScreen({ route, navigation }) {
     navigation.setOptions({ title: categoryTitle });
   }, [categoryId, navigation]);
 
-  function mealItemPressHandler(title) {
-    navigation.navigate('MealDetailScreen', { title });
+  function mealItemPressHandler(id) {
+    navigation.navigate('MealDetailScreen', { id });
   }
 
   function renderMealItem(itemData) {
     const item = itemData.item;
     const mealItemProps = {
+      id: item.id,
       title: item.title,
       imageUrl: item.imageUrl,
       duration: item.duration,
       complexity: item.complexity,
       affordability: item.affordability,
-      onPress: mealItemPressHandler,
+      onMealItemPress: mealItemPressHandler,
     };
     return <MealItem {...mealItemProps} />;
   }
