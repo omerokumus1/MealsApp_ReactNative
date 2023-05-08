@@ -9,21 +9,22 @@ import {
 import MealDetail from './MealDetail';
 
 function MealItem({
+  id,
   title,
   imageUrl,
   duration,
   complexity,
   affordability,
-  onPress,
+  onMealItemPress,
 }) {
-  const mealItemProps = { duration, complexity, affordability };
+  const mealDetailProps = { duration, complexity, affordability };
   return (
     <View style={styles.mealItem}>
       <Pressable
         style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
         android_ripple={{ color: '#ccc' }}
         onPress={() => {
-          onPress(title);
+          onMealItemPress(id);
         }}
       >
         <View style={styles.innerContainer}>
@@ -31,7 +32,7 @@ function MealItem({
             <Image source={{ uri: imageUrl }} style={styles.image} />
             <Text style={styles.title}>{title}</Text>
           </View>
-          <MealDetail {...mealItemProps} />
+          <MealDetail {...mealDetailProps} />
         </View>
       </Pressable>
     </View>
