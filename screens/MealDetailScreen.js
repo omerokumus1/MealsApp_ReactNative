@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useContext, useLayoutEffect } from 'react';
 import {
   Button,
   Image,
@@ -12,13 +12,20 @@ import MealDetail from '../components/MealDetail';
 import Subtitle from '../components/MetalDetail/Subtitle';
 import List from '../components/MetalDetail/List';
 import IconButton from '../components/IconButton';
+import { FavoritesContext } from '../store/context/favorites-context';
 
 function MealDetailScreen({ route, navigation }) {
+  const favoriteMealsCtx = useContext(FavoritesContext);
+  const isFavoriteMeal = favoriteMealsCtx.ids.includes(route.params.id);
   const meal = MEALS.find((meal) => meal.id === route.params.id);
   const { duration, complexity, affordability } = meal;
 
-  function headerButtonPressHandler() {
-    console.log('headerButton pressed');
+  function toggleFavoriteHandler() {
+    if (isFavoriteMeal) {
+      favoriteMealsCtx.removeFavorite(route.params.id);
+    } else {
+      favoriteMealsCtx.addFavorite(route.params.id);
+    }
   }
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,14 +33,14 @@ function MealDetailScreen({ route, navigation }) {
       headerRight: () => {
         return (
           <IconButton
-            onPress={headerButtonPressHandler}
-            icon="star"
+            onPress={toggleFavoriteHandler}
+            icon={isFavoriteMeal ? 'star' : 'star-outline'}
             color="white"
           />
         );
       },
     });
-  });
+  }, [navigation, toggleFavoriteHandler]);
   return (
     <ScrollView style={styles.rootContainer}>
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
