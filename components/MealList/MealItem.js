@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import MealDetail from './MealDetail';
+import MealDetail from '../MealDetail';
 
 function MealItem({
   id,
